@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>HL Names City</title>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='%239b6bff' d='M2 9l6-3 6 3-6 3z'/%3E%3Cpath fill='%235a3fc0' d='M8 12V5l3-1.5V10.5z'/%3E%3Cpath fill='%23c9a8ff' d='M8 12V5L5 3.5v7z'/%3E%3C/svg%3E" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  </head>
+  <body>
+    <canvas id="map" aria-label="Isometric city map"></canvas>
+
+    <header id="topbar">
+      <div class="brand">
+        <div class="logo" aria-hidden="true"></div>
+        <div>
+          <h1>HL Names City</h1>
+          <p>One name. One building.</p>
+        </div>
+      </div>
+      <div class="group">
+        <span class="label" title="Synthetic demo buildings — not real .hl names">Demo buildings</span>
+        <div class="seg" id="preset" role="radiogroup" aria-label="Demo building count">
+          <button data-n="0" role="radio">0</button>
+          <button data-n="100" role="radio">100</button>
+          <button data-n="1000" role="radio">1,000</button>
+          <button data-n="10000" role="radio">10,000</button>
+        </div>
+      </div>
+      <div class="group actions">
+        <button id="add-land" class="btn ghost" title="Generate a new island connected to the world"><span>+</span> Add landmass</button>
+        <button id="regen-map" class="btn ghost" title="New world at the current demo-building count (clears placements)"><span>⟳</span> Regenerate map</button>
+        <button id="reset" class="btn ghost subtle" title="Back to a single empty island (clears placements)">Reset demo</button>
+      </div>
+    </header>
+
+    <aside id="side">
+      <section id="wallet" class="card"></section>
+      <section id="names" class="card names" hidden>
+        <div class="names-head">
+          <h2>Your .hl names <small id="names-count"></small></h2>
+          <button id="refresh" class="icon-btn" title="Refresh names" aria-label="Refresh names">↻</button>
+        </div>
+        <div class="filters" id="filters">
+          <button data-filter="all" class="active">All</button>
+          <button data-filter="unplaced">Unplaced</button>
+          <button data-filter="placed">Placed</button>
+        </div>
+        <input id="search" type="search" placeholder="Search names…" autocomplete="off" spellcheck="false" />
+        <div id="name-list" class="name-list" role="list"></div>
+      </section>
+      <section class="card legend">
+        <div class="lg"><i class="sw real"></i><span><b>Your .hl buildings</b> — purple rim + name label</span></div>
+        <div class="lg"><i class="sw demo"></i><span><b>Demo buildings</b> — generated scenery, never real names</span></div>
+        <div class="lg"><i class="sw open"></i><span><b>Open plots</b> — dashed outline, staked corners</span></div>
+        <p class="foot">Read-only: no signatures or transactions. Placements are saved only in this browser.</p>
+      </section>
+    </aside>
+
+    <div id="landpanel" class="card" hidden></div>
+    <div id="hint" class="hint">Click an island to select it · drag to pan · scroll to zoom</div>
+    <div id="banner" class="banner" hidden></div>
+    <div id="toasts" class="toasts" aria-live="polite"></div>
+    <div id="tooltip" class="tooltip" hidden></div>
+    <div id="stats" class="stats"></div>
+
+    <div id="nav">
+      <canvas id="minimap" width="220" height="150" aria-label="Minimap: click to jump"></canvas>
+      <div class="zoom">
+        <button id="zoom-in" title="Zoom in (+)" aria-label="Zoom in">+</button>
+        <button id="zoom-out" title="Zoom out (−)" aria-label="Zoom out">−</button>
+        <button id="zoom-fit" title="Overview (F)" aria-label="Overview">⤢</button>
+      </div>
+    </div>
+
+    <div id="busy" class="busy" hidden><div class="spinner"></div><span id="busy-text">Generating…</span></div>
+
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
